@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/PublicAPIs/SharedResources/Schemas/Schema.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:import namespace="http://www.tibco.com/schemas/PublicAPIs/SharedResources/Schemas/Schema.xsd" schemaLocation="/SharedResources/Schemas/List.xsd"/>
-    <pd:name>BusinessProcesses/SubProcesses/InvokeList.process</pd:name>
+    <pd:name>BusinessProcesses/SubProcesses/InvokeSearch.process</pd:name>
     <pd:startName>Start</pd:startName>
     <pd:startType>
-        <xsd:element name="List">
+        <xsd:element name="Search">
             <xsd:complexType>
                 <xsd:sequence>
-                    <xsd:element name="UserID" type="xsd:string"/>
+                    <xsd:element name="userId" type="xsd:string"/>
                 </xsd:sequence>
             </xsd:complexType>
         </xsd:element>
     </pd:startType>
-    <pd:startX>96</pd:startX>
-    <pd:startY>63</pd:startY>
+    <pd:startX>126</pd:startX>
+    <pd:startY>71</pd:startY>
     <pd:returnBindings/>
     <pd:endName>End</pd:endName>
-    <pd:endX>450</pd:endX>
-    <pd:endY>64</pd:endY>
+    <pd:endX>429</pd:endX>
+    <pd:endY>72</pd:endY>
     <pd:errorSchemas/>
     <pd:processVariables/>
-    <pd:targetNamespace>http://xmlns.example.com/1501596827688</pd:targetNamespace>
+    <pd:targetNamespace>http://xmlns.example.com/1501609446794</pd:targetNamespace>
     <pd:activity name="Invoke REST API">
         <pd:type>com.tibco.plugin.json.activities.RestActivity</pd:type>
         <pd:resourceType>ae.activities.RestActivity</pd:resourceType>
-        <pd:x>301</pd:x>
-        <pd:y>67</pd:y>
+        <pd:x>284</pd:x>
+        <pd:y>73</pd:y>
         <config>
             <enableProtocolUI>None</enableProtocolUI>
             <restMethodUI>GET</restMethodUI>
@@ -34,7 +34,7 @@
             <WADLPaths/>
             <WADLBaseURL/>
             <restMethodIDUI/>
-            <restURI>%%InterfaceSpecific/GooglePlus%%</restURI>
+            <restURI>%%InterfaceSpecific/GooglePlusSearch%%</restURI>
             <richOutputEnableUI>true</richOutputEnableUI>
             <trustAllHostUI>true</trustAllHostUI>
             <OAuth2ParamPosition>Header</OAuth2ParamPosition>
@@ -47,7 +47,9 @@
                             <xsd:element name="Query" minOccurs="0">
                                 <xsd:complexType>
                                     <xsd:sequence>
-                                        <xsd:element name="userId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="query" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="language" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="maxResults" type="xsd:int" minOccurs="0"/>
                                     </xsd:sequence>
                                 </xsd:complexType>
                             </xsd:element>
@@ -64,7 +66,7 @@
                                         <xsd:element name="Form" minOccurs="0">
                                             <xsd:complexType>
                                                 <xsd:sequence>
-                                                    <xsd:element name="userId" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="param" type="xsd:string" minOccurs="0"/>
                                                 </xsd:sequence>
                                             </xsd:complexType>
                                         </xsd:element>
@@ -135,13 +137,16 @@
             <ns:ActivityInput>
                 <ns:Parameters>
                     <Query>
-                        <userId>
+                        <query>
                             <xsl:value-of select="$Parse-JSON/ns:ActivityOutputClass/pfx:userId"/>
-                        </userId>
+                        </query>
+                        <language>
+                            <xsl:value-of select="&quot;English (US)&quot;"/>
+                        </language>
+                        <maxResults>
+                            <xsl:value-of select="50"/>
+                        </maxResults>
                     </Query>
-                    <Body>
-                        <Form/>
-                    </Body>
                 </ns:Parameters>
             </ns:ActivityInput>
         </pd:inputBindings>
@@ -150,7 +155,7 @@
         <pd:type>com.tibco.plugin.json.activities.JSONParserActivity</pd:type>
         <pd:resourceType>ae.activities.JSONParserActivity</pd:resourceType>
         <pd:x>186</pd:x>
-        <pd:y>65</pd:y>
+        <pd:y>175</pd:y>
         <config>
             <SchemaType>xsdType</SchemaType>
             <BadgerfishCheck>false</BadgerfishCheck>
@@ -159,7 +164,7 @@
         <pd:inputBindings>
             <ns:ActivityInputClass>
                 <jsonString>
-                    <xsl:value-of select="$Start/List/UserID"/>
+                    <xsl:value-of select="$Start/Search/userId"/>
                 </jsonString>
             </ns:ActivityInputClass>
         </pd:inputBindings>

@@ -2,28 +2,28 @@
 <repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
 	<globalVariables>
 		<globalVariable>
-			<name>GooglePlus</name>
-			<value>https://www.googleapis.com/plus/v1/people/</value>
+			<name>BaseURL</name>
+			<value>http://localhost:9190</value>
 			<deploymentSettable>true</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
-			<modTime>1501612268092</modTime>
+			<modTime>1501614765967</modTime>
 		</globalVariable>
 		<globalVariable>
-			<name>GooglePlusActivity</name>
-			<value>https://www.googleapis.com/plus/v1/activities</value>
+			<name>Host</name>
+			<value>localhost</value>
 			<deploymentSettable>true</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
-			<modTime>1501613353966</modTime>
+			<modTime>1501614766630</modTime>
 		</globalVariable>
 		<globalVariable>
-			<name>GooglePlusSearch</name>
-			<value>https://www.googleapis.com/plus/v1/people</value>
+			<name>Port</name>
+			<value>9190</value>
 			<deploymentSettable>true</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
-			<modTime>1501610246557</modTime>
+			<modTime>1501614766432</modTime>
 		</globalVariable>
 	</globalVariables>
 </repository>

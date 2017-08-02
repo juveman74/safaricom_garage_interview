@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/PublicAPIs/SharedResources/Schemas/Schema.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xsd:import namespace="http://www.tibco.com/schemas/PublicAPIs/SharedResources/Schemas/Schema.xsd" schemaLocation="/SharedResources/Schemas/List.xsd"/>
-    <pd:name>BusinessProcesses/SubProcesses/InvokeList.process</pd:name>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>BusinessProcesses/SubProcesses/InvokeActivity.process</pd:name>
     <pd:startName>Start</pd:startName>
     <pd:startType>
-        <xsd:element name="List">
+        <xsd:element name="Activities">
             <xsd:complexType>
                 <xsd:sequence>
-                    <xsd:element name="UserID" type="xsd:string"/>
+                    <xsd:element name="activityId" type="xsd:string"/>
                 </xsd:sequence>
             </xsd:complexType>
         </xsd:element>
     </pd:startType>
-    <pd:startX>96</pd:startX>
-    <pd:startY>63</pd:startY>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
     <pd:returnBindings/>
     <pd:endName>End</pd:endName>
     <pd:endX>450</pd:endX>
     <pd:endY>64</pd:endY>
     <pd:errorSchemas/>
     <pd:processVariables/>
-    <pd:targetNamespace>http://xmlns.example.com/1501596827688</pd:targetNamespace>
+    <pd:targetNamespace>http://xmlns.example.com/1501611814383</pd:targetNamespace>
     <pd:activity name="Invoke REST API">
         <pd:type>com.tibco.plugin.json.activities.RestActivity</pd:type>
         <pd:resourceType>ae.activities.RestActivity</pd:resourceType>
-        <pd:x>301</pd:x>
-        <pd:y>67</pd:y>
+        <pd:x>282</pd:x>
+        <pd:y>63</pd:y>
         <config>
             <enableProtocolUI>None</enableProtocolUI>
             <restMethodUI>GET</restMethodUI>
             <restResponseType>JSON</restResponseType>
-            <authChoiceUI>OAuth2.0</authChoiceUI>
+            <authChoiceUI>Basic Authentication</authChoiceUI>
             <WADLPaths/>
             <WADLBaseURL/>
             <restMethodIDUI/>
-            <restURI>%%InterfaceSpecific/GooglePlus%%</restURI>
+            <restURI>%%InterfaceSpecific/GooglePlusActivity%%</restURI>
             <richOutputEnableUI>true</richOutputEnableUI>
             <trustAllHostUI>true</trustAllHostUI>
-            <OAuth2ParamPosition>Header</OAuth2ParamPosition>
-            <OAuth2TokenName>OAuth client ID</OAuth2TokenName>
-            <OAuth2TokenValue>567394317442-oqdor3jbvm4ajqsdh5sjpr2gninrem2i.apps.googleusercontent.com</OAuth2TokenValue>
+            <password>#!hLKy+xrPDoT6aZqAezqBbMagJ25pWHMIbR3FZ3zxYLTKwaMah62vdRegCI6GjzJGUDLS/IUl3n/CETe7rv9o2pD7cXgH0eoXbvn557ffQQ11egKdDTFl6KzYW00soVJpycf4sVfa5XoPcvY5ZRTxXab6GZ9NXkpXPSyxv58BUR7eE368LxoRUaEtBIpeNq5Gbv71ozPp01OkgSSKd0sYAQ==</password>
+            <username>OAuth client ID</username>
             <restInputReferNode>
                 <xsd:element name="Parameters">
                     <xsd:complexType>
@@ -47,7 +45,7 @@
                             <xsd:element name="Query" minOccurs="0">
                                 <xsd:complexType>
                                     <xsd:sequence>
-                                        <xsd:element name="userId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="activityId" type="xsd:string" minOccurs="0"/>
                                     </xsd:sequence>
                                 </xsd:complexType>
                             </xsd:element>
@@ -64,7 +62,7 @@
                                         <xsd:element name="Form" minOccurs="0">
                                             <xsd:complexType>
                                                 <xsd:sequence>
-                                                    <xsd:element name="userId" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="param" type="xsd:string" minOccurs="0"/>
                                                 </xsd:sequence>
                                             </xsd:complexType>
                                         </xsd:element>
@@ -135,38 +133,17 @@
             <ns:ActivityInput>
                 <ns:Parameters>
                     <Query>
-                        <userId>
-                            <xsl:value-of select="$Parse-JSON/ns:ActivityOutputClass/pfx:userId"/>
-                        </userId>
+                        <activityId>
+                            <xsl:value-of select="$Start/Activities/activityId"/>
+                        </activityId>
                     </Query>
-                    <Body>
-                        <Form/>
-                    </Body>
                 </ns:Parameters>
             </ns:ActivityInput>
         </pd:inputBindings>
     </pd:activity>
-    <pd:activity name="Parse JSON">
-        <pd:type>com.tibco.plugin.json.activities.JSONParserActivity</pd:type>
-        <pd:resourceType>ae.activities.JSONParserActivity</pd:resourceType>
-        <pd:x>186</pd:x>
-        <pd:y>65</pd:y>
-        <config>
-            <SchemaType>xsdType</SchemaType>
-            <BadgerfishCheck>false</BadgerfishCheck>
-            <ActivityOutputEditor ref="pfx:userId"/>
-        </config>
-        <pd:inputBindings>
-            <ns:ActivityInputClass>
-                <jsonString>
-                    <xsl:value-of select="$Start/List/UserID"/>
-                </jsonString>
-            </ns:ActivityInputClass>
-        </pd:inputBindings>
-    </pd:activity>
     <pd:transition>
         <pd:from>Start</pd:from>
-        <pd:to>Parse JSON</pd:to>
+        <pd:to>Invoke REST API</pd:to>
         <pd:lineType>Default</pd:lineType>
         <pd:lineColor>-16777216</pd:lineColor>
         <pd:conditionType>always</pd:conditionType>
@@ -174,13 +151,6 @@
     <pd:transition>
         <pd:from>Invoke REST API</pd:from>
         <pd:to>End</pd:to>
-        <pd:lineType>Default</pd:lineType>
-        <pd:lineColor>-16777216</pd:lineColor>
-        <pd:conditionType>always</pd:conditionType>
-    </pd:transition>
-    <pd:transition>
-        <pd:from>Parse JSON</pd:from>
-        <pd:to>Invoke REST API</pd:to>
         <pd:lineType>Default</pd:lineType>
         <pd:lineColor>-16777216</pd:lineColor>
         <pd:conditionType>always</pd:conditionType>

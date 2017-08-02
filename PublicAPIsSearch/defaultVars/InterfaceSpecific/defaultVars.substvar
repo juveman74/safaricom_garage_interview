@@ -7,7 +7,7 @@
 			<deploymentSettable>true</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
-			<modTime>1501612268092</modTime>
+			<modTime>1501614739184</modTime>
 		</globalVariable>
 		<globalVariable>
 			<name>GooglePlusActivity</name>
@@ -15,7 +15,7 @@
 			<deploymentSettable>true</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
-			<modTime>1501613353966</modTime>
+			<modTime>1501614739413</modTime>
 		</globalVariable>
 		<globalVariable>
 			<name>GooglePlusSearch</name>
@@ -23,7 +23,7 @@
 			<deploymentSettable>true</deploymentSettable>
 			<serviceSettable>false</serviceSettable>
 			<type>String</type>
-			<modTime>1501610246557</modTime>
+			<modTime>1501614739008</modTime>
 		</globalVariable>
 	</globalVariables>
 </repository>

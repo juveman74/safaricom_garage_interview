@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://wadl.dev.java.net/2009/02" name="GooglePlus">
+    <resources name="RestService" base="%%SharedResources/HTTP/BaseURL%%">
+        <resource id="activity" path="/v1/activity">
+            <method name="GET" id="Get">
+                <request name="Request">
+                    <representation mediaType="application/json"/>
+                    <param name="activityId" style="query" required="true" default="">
+                        <doc/>
+                    </param>
+                </request>
+                <response name="Response">
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+        </resource>
+    </resources>
+</application>
